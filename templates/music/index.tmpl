@@ -1,0 +1,15 @@
+{{define "index-about"}}
+Test
+{{end}}
+
+{{define "index-main"}}
+  {{range $title, $metadata := .}}
+    <a href="music/{{$title}}">
+      <img src="{{index $metadata "artwork"}}">
+      <h3>{{$title}}</h3>
+      <p>{{index $metadata "description"}}</p>
+    </a>
+  {{else}}
+    No Music
+  {{end}}
+{{end}}

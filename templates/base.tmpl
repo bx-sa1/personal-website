@@ -1,19 +1,51 @@
-{{define "base"}}
-<!DOCTYPE html>
-<html lang="en">
+{{define "head"}}
 <head>
   <meta charset="UTF-8" />
   <title>Hello, world!</title>
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="description" content="" />
-  <link rel="icon" href="favicon.png">
+  <link rel="icon" href="/favicon.png">
+  <link rel="stylesheet" href="/styles.css">
 </head>
+{{end}}
+
+{{define "header"}}
+<header></header>
+{{end}}
+
+{{define "footer"}}
+<footer></footer>
+{{end}}
+
+{{define "page"}}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {{template "head"}}
+  </head>
   <body>
-    <header></header>
+    {{template "header"}}
     <div id="main">
-      {{include "main"}}
+      {{template "main" .}}
     </div>
-    <footer></footer>
+    {{template "footer"}}
+  </body>
+</html>
+{{end}}
+
+{{define "index"}}
+<!DOCTYPE html>
+<html lang="en">
+  {{template "head"}}
+  <body>
+    {{template "header"}}
+    <div id="about">
+      <p>{{template "index-about" .}}</p>
+    </div>
+    <div id="index">
+      {{template "index-main" .}}
+    </div>
+    {{template "footer"}}
   </body>
 </html>
 {{end}}

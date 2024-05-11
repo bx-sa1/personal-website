@@ -1,0 +1,67 @@
+:root {
+  --bg: #0e0e0e;
+  --fg: #B7410E;
+  --bg-alt: color-mix(in srgb, var(--bg), #1a1a1a);
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--fg);
+  font-family: 'Roboto';
+  padding: 10px;
+}
+
+a {
+  color: color-mix(in srgb, var(--fg), #f1f1f1);
+}
+
+a:link {
+  text-decoration: none;
+}
+
+a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+a:active {
+  text-decoration: none;
+}
+#title {
+}
+
+#title * {
+  display: inline;
+}
+
+#about {
+}
+
+#links {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: flex-end;
+  align-content: stretch;
+  margin: 10%;
+  background-color: var(--bg-alt);
+}
+
+#links a {
+  width: 33%;
+  padding: 16px;
+}
+
+#links a img {
+  width: 100%;
+}
+
+#links a span {
+
+}
+
+#donations {
+  backgound-color: var(--bg-alt)
+}

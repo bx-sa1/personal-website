@@ -1,0 +1,11 @@
+{{define "main"}}
+<div id="about"></div>
+<div id="index">
+  {{range .blogs}}
+    <a href="{{.Link}}">
+      <h3>{{.Title}}</h3>
+      <p>{{.Date}}
+    </a>
+  {{end}}
+</div>
+{{end}}

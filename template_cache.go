@@ -1,4 +1,4 @@
-package personalwebsite
+package main
 
 import "html/template"
 
@@ -19,9 +19,11 @@ func (self *TemplateCache) Get(name string) (*template.Template, error) {
 		if err != nil {
 			return nil, err
 		}
+
 		self.cache[name] = tmpl
 		return tmpl, nil
 	}
+
 	return tmpl, nil
 }
 
