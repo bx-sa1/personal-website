@@ -1,0 +1,61 @@
+{{define "music"}}
+{{template "head" .}}
+<body>
+  {{template "header" .}}
+  <h1 id=title>{{.FrontMatter.title}}</h1>
+  <div id=player>
+    <img id=player-artwork src="{{.FrontMatter.artwork}}">
+    <input id=player-progress-bar type="range" min=0 max=100 value=0>
+    <span id=player-duration></span>
+    <button id=player-play-pause>Play!</button>
+  </div>
+  <p id=description>
+    {{.RenderMarkdown}}
+  </p>
+  <script>
+    const player = document.querySelector("#player");
+    const playerArtwork = document.querySelector("#player-artwork");
+    const playerProgressBar = document.querySelector("#player-progress-bar");
+    const playerDuration = document.querySelector("#player-duration");
+    const playerPlayPauseBtn = document.querySelector("#player-play-pause");
+
+    const audio = new Audio("{{.FrontMatter.file}}");
+
+    function playerPlayPause() {
+      if(audio.paused) {
+        audio.play(); 
+      } else {
+        audio.pause();
+      }
+    }
+
+    function playerSeek(time) {
+      audio.currentTime = time;
+    }
+
+    function stom(s) {
+      let min = Math.trunc(s / 60).toString().padStart(2, '0');
+      let sec = Math.trunc(s % 60).toString().padStart(2, '0');
+
+      return min + ":" + sec;
+    }
+    
+    audio.addEventListener("timeupdate", (e) => {
+      playerDuration.innerText = stom(audio.currentTime) + '/' + stom(audio.duration);
+      playerProgressBar.value = (audio.currentTime/audio.duration * 100);
+    });
+
+    playerPlayPauseBtn.addEventListener("click", (e) => {
+      playerPlayPause(); 
+    });
+
+    playerProgressBar.addEventListener("input", (e) => {
+      playerSeek((playerProgressBar.value/100) * audio.duration);
+    })
+
+    player.appendChild(audio);
+
+  </script>
+  {{template "footer" .}}
+</body>
+{{end}}

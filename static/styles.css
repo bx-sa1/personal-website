@@ -30,6 +30,26 @@ a:hover {
 a:active {
   text-decoration: none;
 }
+
+header {
+  display: flex;
+  align-items: center;
+  margin: 8px;
+}
+
+#header-title {
+  flex-grow: 2;
+  font-size: 3em;
+}
+
+#header-links {
+  flex-grow: 1;
+}
+
+#header-links a {
+  padding: 0 10%;
+}
+
 #title {
 }
 
@@ -64,4 +84,61 @@ a:active {
 
 #donations {
   backgound-color: var(--bg-alt)
+}
+
+#index a {
+  display: block;
+  height: 70px;
+  width: 100%;
+  margin: 4px;
+  background-color: var(--bg-alt);
+  padding: 4px;
+}
+
+#index a * {
+  position: relative;
+  display: inline;
+}
+
+#index a img {
+  height: 100%;
+}
+
+#index a h3 {
+  vertical-align: top;
+}
+
+#player {
+  width: 100%;
+  display: flex;
+  align-items: stretch;
+  align-content: stretch;
+  justify-content: center;
+  background-color: var(--bg-alt);
+  flex-flow: row wrap;
+}
+
+#player * {
+  position: relative;
+}
+
+#player-artwork {
+  width: 35%;
+  flex-basis: auto;
+  margin: auto 20%;
+}
+
+#player-progress-bar {
+  width: 35%;
+  flex-basis: auto;
+}
+
+#player-duration {
+  width: auto;
+  flex-basis: auto;
+}
+
+#player-play-pause {
+  flex-basis: auto;
+  margin: auto 40%;
 }

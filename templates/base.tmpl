@@ -1,7 +1,7 @@
 {{define "head"}}
 <head>
   <meta charset="UTF-8" />
-  <title>Hello, world!</title>
+  <title>Baba's Website</title>
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="description" content="" />
   <link rel="icon" href="/favicon.png">
@@ -10,7 +10,14 @@
 {{end}}
 
 {{define "header"}}
-<header></header>
+<header>
+  <a id=header-title href="/">Baba</a>
+  <div id="header-links">
+    <a href="/music">Music</a>
+    <a href="/blog">Blog</a>
+    <a href="/gallery">Gallery</a>
+  </div>
+</header>
 {{end}}
 
 {{define "footer"}}
@@ -26,7 +33,7 @@
   <body>
     {{template "header"}}
     <div id="main">
-      {{template "main" .}}
+      {{template "page-main" .}}
     </div>
     {{template "footer"}}
   </body>

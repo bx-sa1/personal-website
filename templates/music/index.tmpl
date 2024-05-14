@@ -1,13 +1,12 @@
 {{define "index-about"}}
-Test
+Here is a listing of my music work I've done, with some reading on the side.
 {{end}}
 
 {{define "index-main"}}
-  {{range $title, $metadata := .}}
-    <a href="music/{{$title}}">
-      <img src="{{index $metadata "artwork"}}">
-      <h3>{{$title}}</h3>
-      <p>{{index $metadata "description"}}</p>
+  {{range $key, $value := .}}
+    <a href="/music/{{$value.FrontMatter.title}}">
+      <img id=music-index-artwork src="{{$value.FrontMatter.artwork}}">
+      <h3 id=music-index-artwork>{{$value.FrontMatter.title}}</h3>
     </a>
   {{else}}
     No Music

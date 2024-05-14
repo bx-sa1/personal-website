@@ -1,7 +1,10 @@
 {
   "espana": {
-    "artwork": "music/espana.png",
-    "description": "Lorem ipsum dolor set amit",
-    "file": "music/espana.wav"
+    "artwork": "/music/espana.jpg",
+    "description": "This is by far my favourite beat I've made. 
+    The original sample is so glorius sounding that slicing and arranging it was just fun to do.
+    But I was after this track I realised how inefficient Reaper is for sampling.
+    ",
+    "file": "/music/espana-002.wav"
   }
 }

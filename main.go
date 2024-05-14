@@ -4,21 +4,13 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
-	"os"
 	"strings"
 )
 
-var template_cache = NewTemplateCache()
-
-func loadFile(path string) ([]byte, error) {
-	file, err := os.ReadFile("static/" + path)
-	if err != nil {
-		log.Println(err)
-		return nil, err
-	}
-
-	return file, nil
-}
+var (
+	template_cache = NewTemplateCache()
+	music_list     map[string]*Markdown
+)
 
 func renderTemplate(w http.ResponseWriter, r *http.Request, tmpl string, tmpl_name string, data any) {
 	t, err := template_cache.Get(tmpl)
@@ -56,28 +48,22 @@ func blogHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func musicHandler(w http.ResponseWriter, r *http.Request) {
-	file, err := loadFile("music/music.json")
-	if err != nil {
-		http.NotFound(w, r)
-		return
-	}
-
-	var music map[string]interface{}
-	err = json.Unmarshal(file, &music)
-	if err != nil {
-		log.Println(err)
-	}
-
 	if r.URL.Path == "/music/" {
-		renderTemplate(w, r, "music/index.tmpl", "index", music)
+		renderTemplate(w, r, "music/index.tmpl", "index", music_list)
 	} else {
-		renderTemplate(w, r, r.URL.Path[1:], "page", music)
+
+		music, ok := music_list[r.URL.Path[len("/music/"):]+".md"]
+		if ok {
+			renderTemplate(w, r, "music/music.tmpl", "music", music)
+		} else {
+			http.ServeFile(w, r, "static/"+r.URL.Path[1:])
+		}
 	}
 }
 
 func galleryHandler(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path == "/gallery" {
-		file, err := loadFile("gallery/gallery.json")
+		file, err := LoadFile("gallery/gallery.json")
 		if err != nil {
 			http.NotFound(w, r)
 			return
@@ -90,7 +76,36 @@ func galleryHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func initMusicList() error {
+	music, err := ReadDir("music")
+	if err != nil {
+		return err
+	}
+
+	music_list = make(map[string]*Markdown)
+	for _, entry := range music {
+		if !strings.Contains(entry.Name(), ".md") {
+			continue
+		}
+
+		md, err := ParseMarkdown("music/" + entry.Name())
+		if err != nil {
+			log.Println(err)
+			continue
+		}
+
+		music_list[entry.Name()] = md
+	}
+
+	return nil
+}
+
 func main() {
+	err := initMusicList()
+	if err != nil {
+		log.Println(err)
+	}
+
 	http.HandleFunc("/", rootHandler)
 	http.HandleFunc("/blog/", blogHandler)
 	http.HandleFunc("/music/", musicHandler)
